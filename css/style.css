@@ -5,6 +5,11 @@
     --color-on-sale-accent: #e32c2b;
     --color-sold-out-badge: #efefef;
     --color-custom-badge: #1c1c1c;
+
+    /* luxus akcentus (finom arany tónus) */
+    --lux-gold: #d6b25e;
+    --lux-gold-soft: rgba(214, 178, 94, 0.35);
+    --lux-ink: #0b0b0c;
   
     
     --color-success: #307a07;
@@ -1738,6 +1743,11 @@
   .product-page {
     margin-top: 73px;
     padding-bottom: var(--spacing-xl);
+    /* finom, prémium háttér – marad világos, de kap mélységet */
+    background:
+      radial-gradient(1200px 600px at 80% 10%, rgba(28, 28, 28, 0.04), transparent 60%),
+      radial-gradient(900px 500px at 10% 30%, rgba(214, 178, 94, 0.06), transparent 55%),
+      var(--bg-light);
   }
   
   /* Breadcrumb */
@@ -1899,17 +1909,40 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
+    padding: clamp(1.25rem, 2.2vw, 2rem);
+    border-radius: 14px;
+    /* csillag színek sötét kártyán */
+    --color-star-filled: rgba(255, 255, 255, 0.92);
+    --color-star-rating: rgba(255, 255, 255, 0.35);
+    /* dark luxury card */
+    background:
+      linear-gradient(var(--lux-ink), var(--lux-ink)) padding-box,
+      linear-gradient(135deg, rgba(214, 178, 94, 0.55), rgba(255, 255, 255, 0.12), rgba(214, 178, 94, 0.18))
+        border-box;
+    border: 1px solid transparent;
+    box-shadow:
+      0 18px 60px rgba(0, 0, 0, 0.22),
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset;
   }
   
+  @media (min-width: 768px) {
+    .product-detail__info {
+      position: sticky;
+      top: 110px; /* header + kis tér */
+      align-self: start;
+    }
+  }
+
   .product-detail__vendor {
     font-family: var(--font-body);
     font-size: var(--font-size-sm);
-    color: rgba(28, 28, 28, 0.6);
+    color: rgba(255, 255, 255, 0.65);
     text-transform: lowercase;
   }
   
   .product-detail__title {
     font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--body-text-light);
   }
   
   .product-detail__rating {
@@ -1918,17 +1951,22 @@
     gap: 4px;
   }
   
+  .product-detail__rating .rating-value {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
   .product-detail__price {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
     font-family: var(--font-body);
     font-size: var(--font-size-xl);
+    color: var(--body-text-light);
   }
   
   .product-detail__price--old {
     text-decoration: line-through;
-    color: rgba(28, 28, 28, 0.5);
+    color: rgba(255, 255, 255, 0.5);
     font-size: var(--font-size-base);
   }
   
@@ -1952,12 +1990,13 @@
     font-family: var(--font-body);
     font-size: var(--font-size-base);
     line-height: var(--line-height-body);
-    color: rgba(28, 28, 28, 0.8);
+    color: rgba(255, 255, 255, 0.78);
   }
   
   .product-detail__badges {
     display: flex;
     gap: var(--spacing-xs);
+    flex-wrap: wrap;
   }
   
   .product-detail__badge {
@@ -1967,26 +2006,68 @@
     font-weight: 500;
     letter-spacing: var(--letter-spacing-heading);
     text-transform: uppercase;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
   }
   
   .product-detail__badge--sale {
     background-color: var(--color-on-sale-accent);
     color: var(--body-text-light);
+    border-color: rgba(255, 255, 255, 0.08);
   }
   
   .product-detail__badge--sold-out {
-    background-color: var(--color-sold-out-badge);
+    background-color: rgba(255, 255, 255, 0.92);
     color: var(--body-text-dark);
+    border-color: rgba(0, 0, 0, 0.08);
   }
   
   .product-detail__badge--custom {
-    background-color: var(--color-custom-badge);
-    color: var(--body-text-light);
+    background-color: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.88);
+    border-color: rgba(214, 178, 94, 0.35);
   }
   
   .product-detail__add-to-cart {
     align-self: flex-start;
     min-width: 200px;
+  }
+
+  .product-detail__highlights {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+    padding-top: var(--spacing-sm);
+    margin-top: calc(var(--spacing-xs) * -1);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .product-detail__highlights li {
+    position: relative;
+    padding-left: 18px;
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .product-detail__highlights li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.75em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), var(--lux-gold));
+    box-shadow: 0 0 0 3px rgba(214, 178, 94, 0.12);
+    transform: translateY(-50%);
+  }
+
+  /* jobb oldali kártyán látható fókusz */
+  .product-detail__info a:focus,
+  .product-detail__info button:focus,
+  .product-detail__info input:focus {
+    outline-color: rgba(255, 255, 255, 0.85);
   }
   
   

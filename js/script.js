@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     /**
      */
-    function generateStars(rating) {
+    function generateStars(rating, containerEl) {
       /**
        * Csillag kitöltés számítása:
        * - Ha rating >= csillag index, teljesen kitöltött
@@ -94,8 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
        * - Egyébként üres
        */
       let starsHTML = ""
-      const filledColor = "#1c1c1c"
-      const emptyColor = "rgba(28,28,28,0.45)"
+      const styles = containerEl ? getComputedStyle(containerEl) : getComputedStyle(document.documentElement)
+      const filledColor = (styles.getPropertyValue("--color-star-filled") || "#1c1c1c").trim()
+      const emptyColor = (styles.getPropertyValue("--color-star-rating") || "rgba(28,28,28,0.45)").trim()
   
       for (let i = 1; i <= 5; i++) {
         if (rating >= i) {
@@ -104,15 +105,16 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (rating > i - 1) {
           // Félig kitöltött csillag - linearGradient használatával
           const percentage = (rating - (i - 1)) * 100
+          const gradId = `half-${i}-${Math.random().toString(36).slice(2, 10)}`
           starsHTML += `
             <svg width="14" height="14" viewBox="0 0 24 24">
               <defs>
-                <linearGradient id="half-${i}-${Math.random().toString(36).substr(2, 9)}">
+                <linearGradient id="${gradId}">
                   <stop offset="${percentage}%" stop-color="${filledColor}"/>
                   <stop offset="${percentage}%" stop-color="${emptyColor}"/>
                 </linearGradient>
               </defs>
-              <path fill="url(#half-${i}-${Math.random().toString(36).substr(2, 9)})" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              <path fill="url(#${gradId})" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
           `
         } else {
@@ -128,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const starContainers = document.querySelectorAll(".stars[data-rating]")
       starContainers.forEach((container) => {
         const rating = Number.parseFloat(container.dataset.rating) || 0
-        container.innerHTML = generateStars(rating)
+        container.innerHTML = generateStars(rating, container)
       })
     }
   
