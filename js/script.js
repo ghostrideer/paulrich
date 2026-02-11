@@ -85,6 +85,60 @@ document.addEventListener("DOMContentLoaded", () => {
     ]
   
     /**
+     * ========================================
+     * AUTH – FELHASZNÁLÓK ÉS BEJELENTKEZETT ÁLLAPOT
+     * ========================================
+     */
+    const USERS_STORAGE_KEY = "paulrich_users"
+    const CURRENT_USER_STORAGE_KEY = "paulrich_current_user"
+
+    function getStoredUsers() {
+      const raw = localStorage.getItem(USERS_STORAGE_KEY)
+      if (!raw) return []
+      try {
+        const parsed = JSON.parse(raw)
+        return Array.isArray(parsed) ? parsed : []
+      } catch {
+        return []
+      }
+    }
+
+    function saveStoredUsers(users) {
+      localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users))
+    }
+
+    function getCurrentUser() {
+      const raw = localStorage.getItem(CURRENT_USER_STORAGE_KEY)
+      if (!raw) return null
+      try {
+        return JSON.parse(raw)
+      } catch {
+        return null
+      }
+    }
+
+    function setCurrentUser(user) {
+      if (!user) {
+        localStorage.removeItem(CURRENT_USER_STORAGE_KEY)
+      } else {
+        localStorage.setItem(
+          CURRENT_USER_STORAGE_KEY,
+          JSON.stringify({
+            name: user.name,
+            email: user.email,
+          }),
+        )
+      }
+    }
+
+    function getCartStorageKeyForUser(user) {
+      if (!user || !user.email) return null
+      return `paulrich_cart_${user.email.toLowerCase()}`
+    }
+
+    const currentUser = getCurrentUser()
+
+    /**
      */
     function generateStars(rating, containerEl) {
       /**
@@ -231,18 +285,47 @@ document.addEventListener("DOMContentLoaded", () => {
   
     let cart = []
   
-   
+    /**
+     * Csak bejelentkezett felhasználónál töltünk / mentünk kosarat.
+     * Vendégként a kosár működik, de újratöltéskor nem marad meg.
+     */
     function loadCart() {
-      const savedCart = localStorage.getItem("paulrich_cart")
-      if (savedCart) {
-        cart = JSON.parse(savedCart)
+      cart = []
+
+      const storageKey = getCartStorageKeyForUser(currentUser)
+      if (!storageKey) {
+        // Nincs bejelentkezett user – üres kosár indul, nem töltünk semmit
         updateCartUI()
+        return
       }
+
+      const savedCart = localStorage.getItem(storageKey)
+      if (!savedCart) {
+        updateCartUI()
+        return
+      }
+
+      try {
+        const parsed = JSON.parse(savedCart)
+        if (Array.isArray(parsed)) {
+          cart = parsed
+        }
+      } catch {
+        // ha sérült az adat, üres kosárral indulunk
+        cart = []
+      }
+
+      updateCartUI()
     }
   
   
     function saveCart() {
-      localStorage.setItem("paulrich_cart", JSON.stringify(cart))
+      const storageKey = getCartStorageKeyForUser(currentUser)
+      if (!storageKey) {
+        // Vendégként nem mentjük a kosarat tartósan
+        return
+      }
+      localStorage.setItem(storageKey, JSON.stringify(cart))
     }
   
   
@@ -958,11 +1041,101 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       })
 
-      // Auth formok submitjének lekezelése (egyelőre csak megakadályozzuk a reloadot)
-      const authForms = document.querySelectorAll("[data-auth-form]")
-      authForms.forEach((form) => {
-        form.addEventListener("submit", (e) => {
+      // Regisztráció logika – egyszerű demo, localStorage-ben tároljuk
+      if (registerForm) {
+        registerForm.addEventListener("submit", (e) => {
           e.preventDefault()
+
+          const nameInput = document.getElementById("register-name")
+          const emailInput = document.getElementById("register-email")
+          const passwordInput = document.getElementById("register-password")
+          const passwordConfirmInput = document.getElementById("register-password-confirm")
+
+          const name = nameInput?.value.trim() || ""
+          const email = emailInput?.value.trim().toLowerCase() || ""
+          const password = passwordInput?.value || ""
+          const passwordConfirm = passwordConfirmInput?.value || ""
+
+          if (!name || !email || !password || !passwordConfirm) {
+            showToast("Kérjük, tölts ki minden mezőt.", "error")
+            return
+          }
+
+          if (password.length < 8) {
+            showToast("A jelszónak legalább 8 karakter hosszúnak kell lennie.", "error")
+            return
+          }
+
+          if (password !== passwordConfirm) {
+            showToast("A jelszavak nem egyeznek.", "error")
+            return
+          }
+
+          const users = getStoredUsers()
+          const alreadyExists = users.some((u) => u.email.toLowerCase() === email)
+          if (alreadyExists) {
+            showToast("Ezzel az email címmel már létezik fiók.", "error")
+            return
+          }
+
+          const newUser = { name, email, password }
+          users.push(newUser)
+          saveStoredUsers(users)
+
+          showToast("Sikeres regisztráció. Most jelentkezz be.", "success")
+
+          // mezők ürítése
+          if (passwordInput) passwordInput.value = ""
+          if (passwordConfirmInput) passwordConfirmInput.value = ""
+
+          // automatikus átváltás login fülre + email előtöltése
+          setAuthMode("login")
+          const loginEmailInput = document.getElementById("login-email")
+          if (loginEmailInput) {
+            loginEmailInput.value = email
+          }
+        })
+      }
+
+      // Bejelentkezés logika
+      if (loginForm) {
+        loginForm.addEventListener("submit", (e) => {
+          e.preventDefault()
+
+          const emailInput = document.getElementById("login-email")
+          const passwordInput = document.getElementById("login-password")
+
+          const email = emailInput?.value.trim().toLowerCase() || ""
+          const password = passwordInput?.value || ""
+
+          if (!email || !password) {
+            showToast("Kérjük, add meg az email címed és a jelszavad.", "error")
+            return
+          }
+
+          const users = getStoredUsers()
+          const user = users.find((u) => u.email.toLowerCase() === email)
+
+          if (!user || user.password !== password) {
+            showToast("Hibás email vagy jelszó.", "error")
+            return
+          }
+
+          setCurrentUser(user)
+          showToast("Sikeres bejelentkezés.", "success")
+
+          // Rövid várakozás után vissza a főoldalra
+          setTimeout(() => {
+            window.location.href = "index.html"
+          }, 800)
+        })
+      }
+
+      // Elfelejtett jelszó gomb – egyelőre csak info üzenet
+      const forgotButtons = authPage.querySelectorAll(".auth-link--muted")
+      forgotButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          showToast("Az elfelejtett jelszó funkció hamarosan érkezik.", "success")
         })
       })
     }
