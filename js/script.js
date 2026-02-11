@@ -895,8 +895,78 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       })
     })
-  
+
+    /**
+     * ========================================
+     * AUTH PAGE - LOGIN / REGISTER LOGIKA
+     * ========================================
+     */
+    const authPage = document.querySelector(".auth-page")
+
+    if (authPage) {
+      const authToggleButtons = document.querySelectorAll("[data-auth-toggle]")
+      const loginForm = document.getElementById("auth-login")
+      const registerForm = document.getElementById("auth-register")
+
+      function setAuthMode(mode) {
+        const isLogin = mode === "login"
+
+        authToggleButtons.forEach((btn) => {
+          const target = btn.getAttribute("data-auth-toggle")
+          const isActive = target === mode
+          btn.classList.toggle("is-active", isActive)
+          btn.setAttribute("aria-selected", String(isActive))
+        })
+
+        if (loginForm && registerForm) {
+          loginForm.classList.toggle("hidden", !isLogin)
+          loginForm.setAttribute("aria-hidden", String(!isLogin))
+          registerForm.classList.toggle("hidden", isLogin)
+          registerForm.setAttribute("aria-hidden", String(isLogin))
+        }
+      }
+
+      authToggleButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const mode = btn.getAttribute("data-auth-toggle") || "login"
+          setAuthMode(mode)
+        })
+      })
+
+      // Alapértelmezett mód: login
+      setAuthMode("login")
+
+      // Jelszó megjelenítés / elrejtés
+      const passwordToggleButtons = document.querySelectorAll("[data-password-toggle]")
+
+      passwordToggleButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetId = btn.getAttribute("data-password-toggle")
+          if (!targetId) return
+
+          const input = document.getElementById(targetId)
+          if (!input) return
+
+          const isPassword = input.getAttribute("type") === "password"
+          input.setAttribute("type", isPassword ? "text" : "password")
+          btn.setAttribute("aria-pressed", String(isPassword))
+
+          const labelSpan = btn.querySelector(".auth-password-toggle__label")
+          if (labelSpan) {
+            labelSpan.textContent = isPassword ? "Elrejtés" : "Megjelenítés"
+          }
+        })
+      })
+
+      // Auth formok submitjének lekezelése (egyelőre csak megakadályozzuk a reloadot)
+      const authForms = document.querySelectorAll("[data-auth-form]")
+      authForms.forEach((form) => {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault()
+        })
+      })
+    }
+
     // Sikeres betöltés log
     console.log("Paul Rich e-commerce script sikeresen betöltve.")
   })
-  

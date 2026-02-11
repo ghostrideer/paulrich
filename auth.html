@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiók — Bejelentkezés / Regisztráció</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" type="image/png" href="assets/images/prfavicon.png">
+</head>
+<body>
+    <!-- HEADER (ugyanaz a struktúra, mint a főoldalon) -->
+    <header class="header" role="banner">
+        <div class="header__container">
+            <a href="index.html" class="header__logo" aria-label="paul rich főoldal">
+                paul rich
+            </a>
+
+            <nav class="header__nav" role="navigation" aria-label="Fő navigáció">
+                <ul class="nav__list">
+                    <li class="nav__item nav__item--mega">
+                        <button 
+                            class="nav__link nav__link--mega" 
+                            aria-expanded="false" 
+                            aria-controls="mega-menu-watches"
+                            aria-haspopup="true"
+                        >
+                            ÓRAK
+                        </button>
+                        <div class="mega-menu" id="mega-menu-watches" aria-hidden="true">
+                            <div class="mega-menu__container">
+                                <div class="mega-menu__column">
+                                    <h3 class="mega-menu__title">KOLLEKCIÓK</h3>
+                                    <ul class="mega-menu__list">
+                                        <li class="mega-menu__item"><a href="product.html">Signature</a></li>
+                                        <li class="mega-menu__item"><a href="product.html">Carbon</a></li>
+                                        <li class="mega-menu__item"><a href="product.html">Motorsport</a></li>
+                                        <li class="mega-menu__item"><a href="product.html">Limitált Kiadás</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-menu__column">
+                                    <h3 class="mega-menu__title">STÍLUS SZERINT</h3>
+                                    <ul class="mega-menu__list">
+                                        <li class="mega-menu__item"><a href="product.html">Klasszikus</a></li>
+                                        <li class="mega-menu__item"><a href="product.html">Sport</a></li>
+                                        <li class="mega-menu__item"><a href="product.html">Elegáns</a></li>
+                                        <li class="mega-menu__item"><a href="product.html">Hétköznapi</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-menu__column">
+                                    <h3 class="mega-menu__title">ANYAG SZERINT</h3>
+                                    <ul class="mega-menu__list">
+                                        <li class="mega-menu__item"><a href="product.html">Arany</a></li>
+                                        <li class="mega-menu__item"><a href="product.html">Ezüst</a></li>
+                                        <li class="mega-menu__item"><a href="product.html">Rozé Arany</a></li>
+                                        <li class="mega-menu__item"><a href="product.html">Fekete</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-menu__image-block">
+                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop" alt="Új kollekció" class="mega-menu__image">
+                                    <a href="product.html" class="mega-menu__image-link">ÚJ ÉRKEZÉSEK</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav__item nav__item--mega">
+                        <button 
+                            class="nav__link nav__link--mega" 
+                            aria-expanded="false" 
+                            aria-controls="mega-menu-accessories"
+                            aria-haspopup="true"
+                        >
+                            KIEGÉSZÍTŐK
+                        </button>
+                        <div class="mega-menu" id="mega-menu-accessories" aria-hidden="true">
+                            <div class="mega-menu__container">
+                                <div class="mega-menu__column">
+                                    <h3 class="mega-menu__title">SZÍJAK</h3>
+                                    <ul class="mega-menu__list">
+                                        <li class="mega-menu__item"><a href="#">Bőr</a></li>
+                                        <li class="mega-menu__item"><a href="#">Fém</a></li>
+                                        <li class="mega-menu__item"><a href="#">Gumi</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-menu__column">
+                                    <h3 class="mega-menu__title">EXTRÁK</h3>
+                                    <ul class="mega-menu__list">
+                                        <li class="mega-menu__item"><a href="#">Óradobozok</a></li>
+                                        <li class="mega-menu__item"><a href="#">Ajándékkártyák</a></li>
+                                        <li class="mega-menu__item"><a href="#">Ápolókészlet</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-menu__column">
+                                    <h3 class="mega-menu__title">AJÁNDÉKOK</h3>
+                                    <ul class="mega-menu__list">
+                                        <li class="mega-menu__item"><a href="#">Férfiaknak</a></li>
+                                        <li class="mega-menu__item"><a href="#">Nőknek</a></li>
+                                        <li class="mega-menu__item"><a href="#">Csomagok</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-menu__image-block">
+                                    <img src="https://images.unsplash.com/photo-1526045431048-f857369baa09?w=400&h=300&fit=crop" alt="Kiegészítők" class="mega-menu__image">
+                                    <a href="#" class="mega-menu__image-link">KIEGÉSZÍTŐK FELFEDEZÉSE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">RÓLUNK</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">KAPCSOLAT</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header__icons">
+                <button class="header__icon header__icon--search" aria-label="Kereses" aria-controls="search-modal" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+                <a href="auth.html" class="header__icon header__icon--account" aria-label="Fiók">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <button class="header__icon header__icon--cart" aria-label="Kosar megnyitasa" aria-controls="cart-drawer" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="header__cart-count" aria-live="polite">0</span>
+                </button>
+                <button class="header__hamburger" aria-label="Menu megnyitasa" aria-expanded="false" aria-controls="mobile-menu">
+                    <span class="hamburger__line"></span>
+                    <span class="hamburger__line"></span>
+                    <span class="hamburger__line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobil menü -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <nav class="mobile-menu__nav">
+            <ul class="mobile-menu__list">
+                <li class="mobile-menu__item"><a href="product.html">ÓRAK</a></li>
+                <li class="mobile-menu__item"><a href="#">KIEGÉSZÍTŐK</a></li>
+                <li class="mobile-menu__item"><a href="#">RÓLUNK</a></li>
+                <li class="mobile-menu__item"><a href="#">KAPCSOLAT</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- AUTH PAGE MAIN -->
+    <main role="main" class="auth-page">
+        <section class="auth-card" aria-label="Bejelentkezés és regisztráció">
+            <header class="auth-card__header">
+                <h1 class="auth-card__title">Fiók</h1>
+                <p class="auth-card__subtitle">
+                    Jelentkezz be meglévő fiókoddal, vagy hozz létre egy újat.
+                </p>
+            </header>
+
+            <div class="auth-toggle" role="tablist" aria-label="Bejelentkezés vagy regisztráció">
+                <button
+                    type="button"
+                    class="auth-toggle__btn is-active"
+                    data-auth-toggle="login"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="auth-login"
+                >
+                    Bejelentkezés
+                </button>
+                <button
+                    type="button"
+                    class="auth-toggle__btn"
+                    data-auth-toggle="register"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="auth-register"
+                >
+                    Regisztráció
+                </button>
+            </div>
+
+            <div class="auth-card__body">
+                <!-- LOGIN FORM -->
+                <form
+                    id="auth-login"
+                    class="auth-form"
+                    autocomplete="on"
+                    data-auth-form
+                    aria-labelledby="auth-login-title"
+                >
+                    <h2 id="auth-login-title" class="auth-form__title sr-only">Bejelentkezés</h2>
+
+                    <div class="auth-form__group">
+                        <label for="login-email" class="auth-form__label">Email cím</label>
+                        <input
+                            type="email"
+                            id="login-email"
+                            class="auth-form__input"
+                            name="email"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="auth-form__group">
+                        <label for="login-password" class="auth-form__label">Jelszó</label>
+                        <div class="auth-form__input-wrapper">
+                            <input
+                                type="password"
+                                id="login-password"
+                                class="auth-form__input"
+                                name="password"
+                                autocomplete="current-password"
+                                required
+                            >
+                            <button
+                                type="button"
+                                class="auth-password-toggle"
+                                data-password-toggle="login-password"
+                                aria-pressed="false"
+                            >
+                                <span class="auth-password-toggle__label">Megjelenítés</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="auth-form__footer">
+                        <button type="button" class="auth-link auth-link--muted">
+                            Elfelejtett jelszó?
+                        </button>
+                    </div>
+
+                    <button type="submit" class="btn btn--primary auth-form__submit">
+                        <span class="btn__text">BEJELENTKEZÉS</span>
+                    </button>
+                </form>
+
+                <!-- REGISTER FORM -->
+                <form
+                    id="auth-register"
+                    class="auth-form hidden"
+                    autocomplete="on"
+                    data-auth-form
+                    aria-hidden="true"
+                    aria-labelledby="auth-register-title"
+                >
+                    <h2 id="auth-register-title" class="auth-form__title sr-only">Regisztráció</h2>
+
+                    <div class="auth-form__group">
+                        <label for="register-name" class="auth-form__label">Név</label>
+                        <input
+                            type="text"
+                            id="register-name"
+                            class="auth-form__input"
+                            name="name"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="auth-form__group">
+                        <label for="register-email" class="auth-form__label">Email cím</label>
+                        <input
+                            type="email"
+                            id="register-email"
+                            class="auth-form__input"
+                            name="email"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="auth-form__group">
+                        <label for="register-password" class="auth-form__label">Jelszó</label>
+                        <div class="auth-form__input-wrapper">
+                            <input
+                                type="password"
+                                id="register-password"
+                                class="auth-form__input"
+                                name="password"
+                                autocomplete="new-password"
+                                required
+                            >
+                            <button
+                                type="button"
+                                class="auth-password-toggle"
+                                data-password-toggle="register-password"
+                                aria-pressed="false"
+                            >
+                                <span class="auth-password-toggle__label">Megjelenítés</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="auth-form__group">
+                        <label for="register-password-confirm" class="auth-form__label">Jelszó ismét</label>
+                        <div class="auth-form__input-wrapper">
+                            <input
+                                type="password"
+                                id="register-password-confirm"
+                                class="auth-form__input"
+                                name="password_confirm"
+                                autocomplete="new-password"
+                                required
+                            >
+                            <button
+                                type="button"
+                                class="auth-password-toggle"
+                                data-password-toggle="register-password-confirm"
+                                aria-pressed="false"
+                            >
+                                <span class="auth-password-toggle__label">Megjelenítés</span>
+                            </button>
+                        </div>
+                        <p class="auth-form__hint">
+                            A jelszónak tartalmaznia kell legalább 8 karaktert.
+                        </p>
+                    </div>
+
+                    <button type="submit" class="btn btn--primary auth-form__submit">
+                        <span class="btn__text">FIÓK LÉTREHOZÁSA</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER + CART + SEARCH + TOAST ugyanaz, mint a főoldalon -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer__container">
+            <div class="footer__top">
+                <div class="footer__newsletter">
+                    <h3 class="footer__title">CSATLAKOZZ A KLUBHOZ</h3>
+                    <p class="footer__text">Iratkozz fel exkluzív ajánlotokert és hírekert</p>
+                    <form class="newsletter-form" aria-label="Hirlevel feliratkozas">
+                        <label for="newsletter-email-auth" class="sr-only">Email cím</label>
+                        <input 
+                            type="email" 
+                            id="newsletter-email-auth" 
+                            class="newsletter-form__input" 
+                            placeholder="Add meg az email címed"
+                            required
+                            aria-required="true"
+                        >
+                        <button type="submit" class="btn btn--primary newsletter-form__btn">
+                            <span class="btn__text">FELIRATKOZÁS</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">BOLT</h4>
+                        <ul class="footer__list">
+                            <li><a href="product.html">Karórák</a></li>
+                            <li><a href="#">Kiegészítők</a></li>
+                            <li><a href="#">Ajándékkártyák</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">CÉGÜNK</h4>
+                        <ul class="footer__list">
+                            <li><a href="#">Rólunk</a></li>
+                            <li><a href="#">Kapcsolat</a></li>
+                            <li><a href="#">Karrier</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">TÁMOGATÁS</h4>
+                        <ul class="footer__list">
+                            <li><a href="#">GYIK</a></li>
+                            <li><a href="#">Szállítás</a></li>
+                            <li><a href="#">Visszaküldés</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Instagram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="Facebook">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="Twitter">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="YouTube">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="footer__legal">
+                    <a href="#">Adatvédelmi irányelvek</a>
+                    <a href="#">Általános Szerződési feltételek</a>
+                    <a href="#">Cookie szabályzat</a>
+                </div>
+                <p class="footer__copyright">© 2025 paul rich. Minden jog fenntartva.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART DRAWER -->
+    <div class="cart-drawer" id="cart-drawer" aria-hidden="true" role="dialog" aria-label="Kosar">
+        <div class="cart-drawer__overlay" aria-hidden="true"></div>
+        <div class="cart-drawer__panel">
+            <div class="cart-drawer__header">
+                <h2 class="cart-drawer__title">KOSÁR</h2>
+                <div class="cart-drawer__header-icons">
+                    <button class="cart-drawer__search-btn" aria-label="Kereses">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <button class="cart-drawer__close" aria-label="Kosar bezarasa">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="cart-drawer__content">
+                <div class="cart-drawer__empty" id="cart-empty">
+                    <p>A kosarad üres</p>
+                    <a href="product.html" class="btn btn--primary cart-drawer__continue">
+                        <span class="btn__text">VÁSÁRLÁS FOLYTATÁSA</span>
+                    </a>
+                </div>
+                <ul class="cart-drawer__items" id="cart-items" role="list"></ul>
+            </div>
+            <div class="cart-drawer__footer" id="cart-footer" style="display: none;">
+                <div class="cart-drawer__subtotal">
+                    <span>Részösszeg</span>
+                    <span id="cart-subtotal">$0</span>
+                </div>
+                <p class="cart-drawer__shipping">A szállítási költség a pénztárnál kerül kiszámításra</p>
+                <button class="btn btn--primary cart-drawer__checkout">
+                    <span class="btn__text">FIZETÉS</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEARCH MODAL -->
+    <div class="search-modal" id="search-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Kereses">
+        <div class="search-modal__overlay" aria-hidden="true"></div>
+        <div class="search-modal__panel">
+            <div class="search-modal__header">
+                <div class="search-modal__input-wrapper">
+                    <svg class="search-modal__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" class="search-modal__input" id="search-input" placeholder="Kereses..." aria-label="Kereses termekek kozott" autocomplete="off">
+                </div>
+                <button class="search-modal__close" aria-label="Bezar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="search-modal__content">
+                <div class="search-modal__empty" id="search-empty">
+                    <p>Kezdj el gépelni a kereséshez...</p>
+                </div>
+                <ul class="search-modal__results" id="search-results" role="list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast" role="alert" aria-live="polite" aria-hidden="true">
+        <div class="toast__content">
+            <svg class="toast__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span class="toast__message" id="toast-message">Termék hozzáadva a kosárhoz</span>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
+
